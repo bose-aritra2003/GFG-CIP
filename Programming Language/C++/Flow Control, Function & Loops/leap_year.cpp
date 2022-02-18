@@ -10,11 +10,13 @@ int main() {
     int n{};
     std::cin >> n;
 
-    if(n % 4 == 0 && n % 100 != 0)
+    if(n % 400 == 0)
         std::cout << "Leap year";
-    else if(n % 400 == 0)
-        std::cout << "Leap year";
-    else
+    else if(n % 100 == 0)
         std::cout << "Not a leap year";
+    else if(n % 4 == 0)
+        std::cout << "Leap year";
+    else:
+        std::cout << "Not a leap year"
     return 0;
 }
