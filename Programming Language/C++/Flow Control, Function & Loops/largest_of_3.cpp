@@ -1,4 +1,4 @@
-//LARGEST OF 3 NUMBERS
+// LARGEST OF 3 NUMBERS
 
 #include <iostream>
 
