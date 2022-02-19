@@ -1,10 +1,9 @@
-//SIMPLE CALCULATOR
+// SIMPLE CALCULATOR
 /* There will be 3 integer inputs
  * First input will be for which type of operation
  * 1 -> Addition, 2 -> Subtraction, 3 -> Multiplication
  * Next 2 inputs will be the operands
- * If for the first input user enters anything other than 1/2/3
-   the program will show invalid input
+ * If for the first input user enters anything other than 1/2/3 the program will show invalid input
  */
 
 #include <iostream>
