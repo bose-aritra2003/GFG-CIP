@@ -1,4 +1,4 @@
-//LEAP YEAR
+// LEAP YEAR
 /* Conditions are:
  * 1) Divisible by 4
  * 2) But not divisible by 100
