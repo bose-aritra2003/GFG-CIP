@@ -16,6 +16,7 @@ int main() {
 
     std::cout << "Prime factor(s) are: ";
     printPrimeFactorization(n);
+    return 0;
 }
 
 bool isPrime(int x) {
