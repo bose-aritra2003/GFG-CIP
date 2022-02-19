@@ -1,4 +1,4 @@
-//CUP PROBLEM
+// CUP PROBLEM
 
 /* You are given n cups (user input)
  * You and your opponent get to pick one cup at a time
