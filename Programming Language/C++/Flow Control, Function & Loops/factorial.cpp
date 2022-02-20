@@ -16,5 +16,5 @@ int main() {
     std::cout << "Enter an integer to find out its factorial: ";
     int number{};
     std::cin >> number;
-    factorial(number);
+    std::cout << factorial(number) << '\n';
 }
