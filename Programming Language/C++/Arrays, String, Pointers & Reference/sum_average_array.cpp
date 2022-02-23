@@ -1,4 +1,4 @@
-// Sum of elements in an array
+// Sum and average of elements in an array
 
 /* Program will traverse through each element of the array
  * and a variable sum will cumulatively add up each element in the array.
