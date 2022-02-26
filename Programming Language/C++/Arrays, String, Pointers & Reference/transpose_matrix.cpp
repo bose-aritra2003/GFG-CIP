@@ -17,7 +17,7 @@ void transposeOf(auto &arr) {
         }
 }
 
-void print(auto &arr) {
+void print(const auto &arr) {
     for(int r = 0; r < arr.size(); r++) {
         for (int c = 0; c < arr[r].size(); c++) {
             cout << arr[r][c] << ' ';
