@@ -137,7 +137,7 @@ void allSubsequencesOfString(const string &s, const string& curr = "", int i = 0
     /**
      * Prints all the subsequences of a string
      */
-    if(i == s.length()) {
+    if(i >= s.length()) {
         cout << curr << '\n';
         return;
     }
