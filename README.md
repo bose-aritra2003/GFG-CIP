@@ -1,2 +1,2 @@
-# GFG-CIP
-Code Problems solution on GFG CIP
+# GeeksForGeeks: Complete Interview preparation
+Codes, solutions, implementations, etc.
