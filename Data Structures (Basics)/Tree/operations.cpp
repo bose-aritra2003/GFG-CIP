@@ -166,6 +166,9 @@ void verticalOrderPrint(Node *root) {
      * Time Complexity: O(n)
      * Auxiliary Space: O(n)
      */
+    if(root == nullptr) {
+        return;
+    }
     map<int, map<int, multiset<int>>> nodes;
     queue<pair<Node*, pair<int, int>>> que;
     que.push({root, {0, 0}});
