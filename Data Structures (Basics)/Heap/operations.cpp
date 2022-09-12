@@ -91,15 +91,19 @@ public:
          * Time Complexity: O(log n)
          * Auxiliary Space: O(1)
          */
-        if(heap_size == 0) {
-            cerr << "Heap is empty";
+        if(heap_size <= 0) {
+            cerr << "Heap Underflow" << endl;
             return INT_MAX;
         }
-        int x = arr[0];
-        swap(arr[0], arr[heap_size - 1]);
+        if(heap_size == 1) {
+            heap_size--;
+            return arr[0];
+        }
+        int root = arr[0];
+        arr[0] = arr[heap_size - 1];
         heap_size--;
         iterativeMinHeapify(0);
-        return x;
+        return root;
     }
 
     void decreaseKey(int i, int x) {
@@ -134,4 +138,24 @@ minHeap buildMinHeap(int *arr, int n) {
         heap.iterativeMinHeapify(i);
     }
     return heap;
+}
+
+void descendingHeapSort(int *arr, int n) {
+    /**
+     * Time Complexity: O(n log n)
+     * Auxiliary Space: O(1)
+     */
+    minHeap heap = buildMinHeap(arr, n);
+    for(int i = n-1; i >= 1; i--) {
+        arr[i] = heap.extractMin();
+    }
+}
+
+
+int main() {
+    int arr[7] = {10, 20, 15, 12, 40, 25, 18};
+    descendingHeapSort(arr, 7);
+    for(int i : arr) {
+        cout << i << " ";
+    }
 }
