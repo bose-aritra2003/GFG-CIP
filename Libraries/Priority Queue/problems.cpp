@@ -94,7 +94,7 @@ struct myCmp {
 
 vector<int> kMostFrequentElementsSorted(vector<int>& arr, int k) {
     /**
-     * Time Complexity: O(k log n)
+     * Time Complexity: O(k log n + n)
      * Space Complexity: O(n)
      */
     unordered_map<int, int> mp;
