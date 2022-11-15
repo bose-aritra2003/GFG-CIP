@@ -26,6 +26,12 @@ void rearrangeTwoSortedArrays(vector<int>& a, vector<int>& b) {
             push_heap(b.begin(), b.end(), greater<int>());
         }
     }
+    // Convert the second array again into max_heap
+    // because sort_heap() on min heap sorts the array
+    // in decreasing order
+    // This step is [O(m)]
+    make_heap(b.begin(), b.end()); // It's a max_heap
+    
     sort_heap(b.begin(), b.end());
     //Although you can also use just "sort()" at the end but since b is already a heap, sort_heap() is more optimised
 }
