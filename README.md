@@ -1,5 +1,4 @@
-# GeeksForGeeks: Complete Interview preparation
-Codes, solutions, implementations, etc.
+# Competitive Programming Template
 <br>
 
 ```
@@ -37,6 +36,7 @@ using namespace std;
 //----------------------</SHORT-HAND>------------------------
 #define endl '\n'
 #define int long long
+#define INF LONG_LONG_MAX
 #define all(x) (x).begin(),(x).end()
 #define rall(x) (x).rbegin(),(x).rend()
 #define fast_io ios::sync_with_stdio(false); cin.tie(nullptr); cout.tie(nullptr);
@@ -66,7 +66,91 @@ using namespace std;
 #define BITMASK_CHECK_ALL(x, mask) (!(~(x) & (mask)))
 #define BITMASK_CHECK_ANY(x, mask) ((x) & (mask))
 
+// ----------------------</OVERLOAD>--------------------------
+template <typename T, typename S>
+ostream& operator<<(ostream& os, const pair<T, S>& v)
+{
+    os << v.first << " " << v.second;
+    return os;
+}
+template <typename T>
+ostream& operator<<(ostream& os, const vector<T>& v)
+{
+    for (int i = 0; i < v.size(); ++i) {
+        os << v[i];
+        if (i != v.size() - 1)
+            os << " ";
+    }
+    return os;
+}
 
+//---------------------</DISJOINT SET>------------------------
+class DisjointSet {
+private:
+    vector<int> parent;
+    vector<int> set_size;
+public:
+    explicit DisjointSet(int capacity) {
+        /**
+         * @brief Construct a new Disjoint Set object
+         */
+        parent.resize(capacity + 1);
+        set_size.resize(capacity + 1, 1);
+        for(int i = 0; i < capacity + 1; i++) {
+            parent[i] = i;
+        }
+    }
+    int find(int node) {
+        /**
+         * @brief Find the parent of the node
+         * @param node: The node to find the parent of
+         * @return The parent of the node
+         */
+        if (parent[node] == node)
+            return node;
+        return parent[node] = find(parent[node]);
+    }
+    void unite(int x, int y) {
+        /**
+         * @brief Unites two sets
+         * @param x: first node
+         * @param y: second node
+         */
+        int x_root = find(x);
+        int y_root = find(y);
+        if(x_root == y_root)
+            return;
+        if (set_size[x_root] < set_size[y_root]) {
+            parent[x_root] = y_root;
+            set_size[y_root] += set_size[x_root];
+        }
+        else {
+            parent[y_root] = x_root;
+            set_size[x_root] += set_size[y_root];
+        }
+    }
+    int size(int node) {
+        /**
+         * @brief Returns the size of the set
+         * @param node: The node to find the size of
+         * @return: The size of the set
+         */
+        return set_size[find(node)];
+    }
+    int count() {
+        /**
+         * @brief Returns the number of disjoint sets
+         * @return: The number of disjoint sets
+         */
+        int components = 0, n = parent.size();
+        for(int i = 0; i < n; i++) {
+            components += (find(i) == i);
+        }
+        return components;
+    }
+};
+
+// ----------------------</PROBLEM>---------------------------
 class Problem {
 private:
     int tc; //No. of testcases
@@ -162,15 +246,26 @@ private:
         return p;
     }
 
-    int factorial(int n) {
+    int hardFactorial(int n) {
         /**
-         * @param n: number to find factorial of
-         * @return: factorial of n
+         * @param n: number to find hardFactorial of
+         * @return: hardFactorial of n
          */
         int fact[21] = {1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600, 6227020800,
                               87178291200, 1307674368000, 20922789888000, 355687428096000, 6402373705728000,
                               121645100408832000, 2432902008176640000};
         return fact[n];
+    }
+
+    int factorial(int n) {
+        /**
+         * @param n: number to find factorial of
+         * @return: factorial of n
+         */
+        int res = 1;
+        for (int i = 2; i <= n; i++)
+            res = (res * i) % MOD;
+        return res;
     }
 
     int nCr(int n, int r) {
@@ -179,7 +274,7 @@ private:
          * @param r: number of elements to choose from
          * @return: nCr of n and r
          */
-        return factorial(n) / (factorial(r) * factorial(n - r));
+        return hardFactorial(n) / (hardFactorial(r) * hardFactorial(n - r));
     }
 
     bool isPowerOfTwo(int n) {
@@ -223,30 +318,47 @@ private:
         }
     }
 
-    void splitString(string s, char delim, vector<string> &v) {
-        /**
-         * @param s: string to split
-         * @param delim: delimiter to split by
-         * @param v: vector to store split strings in
-         */
-        int start = 0;
-        int end = 0;
-        while (end < s.size()) {
-            if (s[end] == delim) {
-                v.push_back(s.substr(start, end - start));
-                start = end + 1;
+    vector<string> splitString(const string& str, char delim)
+    {
+        string word;
+        vector<string> words;
+        for (auto x : str)
+        {
+            if (x == delim)
+            {
+                words.push_back(word);
+                word = "";
             }
-            end += 1;
+            else {
+                word += x;
+            }
         }
-        v.push_back(s.substr(start, end - start));
+        words.push_back(word);
+        return words;
     }
 
     //Extra functions if required
 
-
     //Main code starts here
     void execute() {
-        
+        int n;
+        cin >> n;
+        vector<int> arr(n);
+        for(auto &i: arr)
+            cin >> i;
+        int digits_in_bin = (int)(log2(n)) + 1;
+        int power_set = fastPow(2, digits_in_bin);
+        vector<int> temp(power_set, 0);
+        temp[0] = 1;
+        int impossible = 0, XOR = 0;
+        for(auto &i: arr){
+            XOR ^= i;
+           for(int j = 0; j * j < power_set; j++)
+               impossible += temp[XOR ^ (j * j)];
+           temp[XOR]++;
+        }
+        int ans = ((n * (n + 1)) / 2) - impossible;
+        cout << ans << endl;
     }
 
 public:
